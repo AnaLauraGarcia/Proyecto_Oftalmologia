@@ -18,22 +18,6 @@
     $password = $_POST['password'] ;
         
 
-//    $clave = hash('sha512', $clave); //Contraseña encriptada
-
-    // Validar campos no vacíos
-    
- 
-    // if (empty($nombre) || empty($apellido) || empty($email) || empty($password)) {
-    //     echo '
-    //         <script>
-    //             alert("Todos los campos son obligatorios.");
-    //             window.location = "../index.php";
-    //         </script>
-    //     ';
-    //     exit;
-    // }
-
-
     $query = " INSERT INTO users
     (dni, lastName, name, birthday, affiliateName, affiliateNumber, phone, email, province, city, localate, zip, address, password)
     VALUES 

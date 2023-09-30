@@ -1,6 +1,7 @@
 /* Validación de Formulario de Login */
 function login() {
     console.log("Login function called");
+    console.log("La función evalName() se está ejecutando.");
     let email = document.getElementById(`emailLogin`);
     let password = document.getElementById(`passwordLogin`)
     if (email.value === '' && password.value === '') {
@@ -123,6 +124,7 @@ function passwordDisplay(){
 }
 
 function evalName() {
+    console.log("La función evalName() se está ejecutando.");
     let name = document.getElementById("name").value;
     let element = document.getElementById("nameStatus");
     let regExName = /^([A-Z][a-z]+\s{0,1})+$/g;
@@ -133,12 +135,15 @@ function evalName() {
         } else {
             element.innerHTML = "Solo se permiten letras. Primer letra mayúscula y el resto minúsculas";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
+
 function evalLastName() {
     let lastName = document.getElementById("lastName").value;
     let element = document.getElementById("lastNameStatus");
@@ -150,12 +155,15 @@ function evalLastName() {
         } else {
             element.innerHTML = "Solo se permiten letras. Primer letra mayúscula y el resto minúsculas";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
+
 function evalDni() {
     let dni = document.getElementById("dni").value;
     let element = document.getElementById("dniStatus");
@@ -164,13 +172,16 @@ function evalDni() {
         if (regExName.test(dni)) {
             element.innerHTML = ''
             return true;
+
         } else {
             element.innerHTML = "Solo se permiten el ingreso de ocho números";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
 function evalBirthday() {
@@ -179,9 +190,11 @@ function evalBirthday() {
     if (birthday != '') {
         element.innerHTML = ''
         return true
+
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
 function evalPhone() {
@@ -195,10 +208,12 @@ function evalPhone() {
         } else {
             element.innerHTML = "El número no debe contner ni el 0 ni el 15";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
 function evalEmail() {
@@ -212,46 +227,52 @@ function evalEmail() {
         } else {
             element.innerHTML = "El formato de email debe ser: ejemplo@email.com";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
-function evalAffiliateName() {
-    let aName = document.getElementById("affiliateName").value;
-    let element = document.getElementById("affiliateNameStatus");
-    let regExName = /^([A-Z][a-z]+\s{0,1})+$/g;
-    if (aName != '') {
-        if (regExName.test(aName)) {
-            element.innerHTML = ''
-            return true;
-        } else {
-            element.innerHTML = "Solo se permiten letras. Primer letra mayúscula y el resto minúsuculas";
-            element.style.color = "red";
-        }
-    } else {
-        element.innerHTML = "Este campo es obligatorio";
-        element.style.color = "red";
-    }
-}
-function evalAffiliateNumber() {
-    let aNumber = document.getElementById("affiliateNumber").value;
-    let element = document.getElementById("affiliateNumberStatus");
-    let regExName = /^([0-9]{10})$/g;
-    if (aNumber != '') {
-        if (regExName.test(aNumber)) {
-            element.innerHTML = ''
-            return true;
-        } else {
-            element.innerHTML = "Solo se permiten números con un máximo de 10";
-            element.style.color = "red";
-        }
-    } else {
-        element.innerHTML = "Este campo es obligatorio";
-        element.style.color = "red";
-    }
-}
+
+
+// function evalAffiliateName() {
+//     let aName = document.getElementById("affiliateName").value;
+//     let element = document.getElementById("affiliateNameStatus");
+//     let regExName = /^([A-Z][a-z]+\s{0,1})+$/g;
+//     if (aName != '') {
+//         if (regExName.test(aName)) {
+//             element.innerHTML = ''
+//             return true;
+//         } else {
+//             element.innerHTML = "Solo se permiten letras. Primer letra mayúscula y el resto minúsuculas";
+//             element.style.color = "red";
+
+//         } 
+//     } else {
+//         element.innerHTML = ''; // Campo vacío, no mostramos mensaje de error
+//     }
+// }
+
+// function evalAffiliateNumber() {
+//     let aNumber = document.getElementById("affiliateNumber").value;
+//     let element = document.getElementById("affiliateNumberStatus");
+//     let regExName = /^([0-9]{10})$/g;
+//     if (aNumber != '') {
+//         if (regExName.test(aNumber)) {
+//             element.innerHTML = ''
+//             return true;
+//         } else {
+//             element.innerHTML = "Solo se permiten números con un máximo de 10";
+//             element.style.color = "red";
+  
+//         }
+//     } else {
+//         element.innerHTML = ''; // Campo vacío, no mostramos mensaje de error
+//     }
+// }
+
 function evalProvincia() {
     let prov = document.getElementById("selectProvincia").value;
     let element = document.getElementById("provinciaStatus");
@@ -261,6 +282,7 @@ function evalProvincia() {
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+    
     }
 }
 function evalMunicipio() {
@@ -272,6 +294,7 @@ function evalMunicipio() {
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+ 
     }
 }
 function evalLocalidad() {
@@ -283,6 +306,7 @@ function evalLocalidad() {
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+    
     }
 }
 function evalAddress() {
@@ -296,12 +320,15 @@ function evalAddress() {
         } else {
             element.innerHTML = "No es una dirección válida";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
+
 function evalPass() {
     let pass = document.getElementById("password").value;
     let element = document.getElementById("passwordStatus");
@@ -313,10 +340,12 @@ function evalPass() {
         } else {
             element.innerHTML = "No es una contraseña válida";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
 function evalPass2() {
@@ -330,40 +359,46 @@ function evalPass2() {
         } else {
             element.innerHTML = "Las contraseñas no coinciden";
             element.style.color = "red";
+            return false;
         }
     } else {
         element.innerHTML = "Este campo es obligatorio";
         element.style.color = "red";
+        return false;
     }
 }
+
 function evalSocialCheck() {
     let socialCheck = document.getElementById("social-work__check");
     if (socialCheck.checked) {
         return true;
     }
 }
-function evalMessage() {
-    let message = document.getElementById("message").value;
-    let element = document.getElementById("messageStatus");
-    if (message != '') {
-        element.innerHTML = ''
-        return true;
-    } else {
-        element.innerHTML = "Este campo es obligatorio";
-        element.style.color = "red";
-    }
-}
+
+// function evalMessage() {
+//     let message = document.getElementById("message").value;
+//     let element = document.getElementById("messageStatus");
+//     if (message != '') {
+//         element.innerHTML = ''
+//         return true;
+//     } else {
+//         element.innerHTML = "Este campo es obligatorio";
+//         element.style.color = "red";
+//         return false;
+//     }
+// }
 
 
 evalRegisterForm = () => {
+    
     document.getElementById("name").addEventListener("input", evalName);
     document.getElementById("lastName").addEventListener("input", evalLastName);
     document.getElementById("dni").addEventListener("input", evalDni);
     document.getElementById("birthday").addEventListener("input", evalBirthday);
     document.getElementById("phone").addEventListener("input", evalPhone);
     document.getElementById("email").addEventListener("input", evalEmail);
-    document.getElementById("affiliateName").addEventListener("input", evalAffiliateName);
-    document.getElementById("affiliateNumber").addEventListener("input", evalAffiliateNumber);
+    // document.getElementById("affiliateName").addEventListener("input", evalAffiliateName);
+    // document.getElementById("affiliateNumber").addEventListener("input", evalAffiliateNumber);
     document.getElementById("selectProvincia").addEventListener("input", evalProvincia);
     document.getElementById("selectMunicipio").addEventListener("input", evalMunicipio);
     document.getElementById("selectLocalidad").addEventListener("input", evalLocalidad);
@@ -372,25 +407,29 @@ evalRegisterForm = () => {
     document.getElementById("password2").addEventListener("input", evalPass2);
     document.getElementById("social-work__check").addEventListener("change", evalSocialCheck);
 
-    if (evalName() & evalLastName() & evalDni() & evalBirthday() & evalPhone() & evalEmail() & evalProvincia() & evalMunicipio() & evalLocalidad() & evalAddress() & evalPass() & evalPass2()) {
+    
+
+    let isValid = true; // Variable para rastrear si todas las validaciones son exitosas
+
+    // Validar cada campo y actualizar isValid
+    if (!(evalName() && evalLastName() && evalDni() && evalBirthday() && evalPhone() && evalEmail() && evalProvincia() && evalMunicipio() && evalLocalidad() && evalAddress() && evalPass() && evalPass2())) {
+        isValid = false;
+        console.log("La función evalName se está ejecutando.");
+    }
+
+    // if (evalSocialCheck()) {
+    //     if (!(evalAffiliateName() && evalAffiliateNumber())) {
+    //         isValid = false;
+    //     }
+    // }
+
+    // Verificar isValid antes de enviar el formulario
+    if (isValid) {
         Swal.fire({
             icon: 'success',
             title: 'Gracias por registrarse!',
             text: 'Sus datos se guardaron exitosamente'
         });
-    } else if (evalSocialCheck()) {
-        if (evalAffiliateName() & evalAffiliateNumber()) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Gracias por registrarse!',
-                text: 'Sus datos se guardaron exitosamente'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Verifique los errores'
-            });
-        }
     } else {
         Swal.fire({
             icon: 'error',
@@ -399,33 +438,34 @@ evalRegisterForm = () => {
     }
 }
 
-evalContactForm = () => {
-    document.getElementById("name").addEventListener("input", evalName);
-    document.getElementById("lastName").addEventListener("input", evalLastName);
-    document.getElementById("phone").addEventListener("input", evalPhone);
-    document.getElementById("message").addEventListener("input", evalMessage);
-    if (!(evalName() & evalLastName() & evalPhone() & evalMessage())) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Verifique los errores'
-        });
-    }
-}
 
-evalRecoveryForm = () => {
-    document.getElementById("email").addEventListener("input", evalEmail);
-    if (evalEmail()) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Tu email se ha enviado correctamente!'
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Verifique los errores'
-        });
-    }
-}
+// evalContactForm = () => {
+//     document.getElementById("name").addEventListener("input", evalName);
+//     document.getElementById("lastName").addEventListener("input", evalLastName);
+//     document.getElementById("phone").addEventListener("input", evalPhone);
+//     document.getElementById("message").addEventListener("input", evalMessage);
+//     if (!(evalName() & evalLastName() & evalPhone() & evalMessage())) {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Verifique los errores'
+//         });
+//     }
+// }
+
+// evalRecoveryForm = () => {
+//     document.getElementById("email").addEventListener("input", evalEmail);
+//     if (evalEmail()) {
+//         Swal.fire({
+//             icon: 'success',
+//             title: 'Tu email se ha enviado correctamente!'
+//         });
+//     } else {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Verifique los errores'
+//         });
+//     }
+// }
 
 /* Validación formularios New Turn */
 /*function evalService() {

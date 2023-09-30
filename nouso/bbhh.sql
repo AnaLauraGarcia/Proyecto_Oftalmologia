@@ -45,26 +45,21 @@ CREATE TABLE usuario
 );
 
 
-CREATE TABLE especialidad 
+CREATE TABLE speciality 
 (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-    nombre varchar(25) NOT NULL,
-    ruta_img varchar(100) DEFAULT NULL,
-    descripcion varchar(255) NOT NULL
+    name varchar(25) NOT NULL
 );
 
 
 
-CREATE TABLE profesional
+CREATE TABLE professional
 (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-    rol varchar(15) DEFAULT NULL,
-    apellido varchar(25) NOT NULL,        
-    nombre varchar(25) NOT NULL,  
-    ruta_img varchar(100) DEFAULT NULL,
-    descripcion varchar(255) NOT NULL, 
-    especialidad_id INT NOT NULL,
-    FOREIGN KEY (especialidad_id) REFERENCES especialidad(id)
+    lastName varchar(25) NOT NULL,        
+    name varchar(25) NOT NULL,  
+    speciality_id INT NOT NULL,
+    FOREIGN KEY (speciality_id) REFERENCES speciality(id)
 );
 
 

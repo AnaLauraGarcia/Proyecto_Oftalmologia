@@ -27,40 +27,47 @@
         </section>
         <div class="content">
             <div class="container">
-                <form action="php/registro_usuario_be.php" method="POST" class="form-register">
+                <form  action="php/registro_usuario_be.php" method="POST" class="form-register">
                     <fieldset>
                         <legend>Completa los campos para registrarte</legend>
                         <div class="input-container">
+
                             <div class="form-register__input">
                                 <label for="">Nombre*</label>
                                 <input class="input-text" type="text" placeholder="Escribe tu nombre" id="name" name="name" required>
                                 <p id="nameStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Apellido*</label>
                                 <input class="input-text" type="text" placeholder="Escribe tu apellido" id="lastName" name="lastName" required>
                                 <p id="lastNameStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">DNI*</label>
                                 <input class="input-text" type="number" placeholder="Escribe tu dni sin puntos" id="dni" name="dni" required>
                                 <p id="dniStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Fecha de Nacimiento*</label>
                                 <input class="input-text" type="date" placeholder="Selecciona tu fecha de nacimiento" id="birthday" name="birthday" required>
                                 <p id="birthdayStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Teléfono*</label>
                                 <input class="input-text" type="tel" placeholder="Escribe tu teléfono sin 0 ni 15" id="phone" name="phone" required>
                                 <p id="phoneStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Email*</label>
                                 <input class="input-text" type="email" placeholder="Escribe tu email" id="email" name="email">
                                 <p id="emailStatus"> </p>
                             </div>
+
                             <div class="form-register__input" id="social-work">
                                 <div>
                                     <label class="social-work__label">
@@ -69,18 +76,21 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div id="affiliate">
                                 <div class="form-register__input">
-                                    <label for="">Obra Social*</label>
-                                    <input class="input-text" type="text" placeholder="Escribe el nombre de tu obra social" id="affiliateName" name="affiliateName" required>
+                                    <label for="">Obra Social</label>
+                                    <input class="input-text" type="text" placeholder="Escribe el nombre de tu obra social" id="affiliateName" name="affiliateName">
                                     <p id="affiliateNameStatus"> </p>
                                 </div>
+
                                 <div class="form-register__input">
-                                    <label for="">Número de Afiliado*</label>
-                                    <input class="input-text" type="number" placeholder="Escribe tu número de afiliado" id="affiliateNumber" name="affiliateNumber" required>
+                                    <label for="">Número de Afiliado</label>
+                                    <input class="input-text" type="number" placeholder="Escribe tu número de afiliado" id="affiliateNumber" name="affiliateNumber">
                                     <p id="affiliateNumberStatus"> </p>
                                 </div>
-                            </div>
+                            </div> 
+
                             <div class="form-register__input">
                                 <label for="">Provincia*</label>
                                 <select name="province" class="input-text" id="selectProvincia" required>
@@ -89,6 +99,7 @@
                                 <span></span>
                                 <p id="provinciaStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Municipio*</label>
                                 <select name="city" class="input-text select" id="selectMunicipio" required>
@@ -97,6 +108,7 @@
                                 <span></span>
                                 <p id="municipioStatus"> </p>
                             </div>
+                            
                             <div class="form-register__input">
                                 <label for="">Localidad*</label>
                                 <select name="localate" class="input-text select" id="selectLocalidad" required>
@@ -105,25 +117,30 @@
                                 <span></span>
                                 <p id="localidadStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Código Postal</label>
                                 <input class="input-text" type="number" placeholder="Escribe tu código postal" id="zip" name="zip">
                                 <p id="zipStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Dirección*</label>
                                 <input class="input-text" type="text" placeholder="Escribe tu dirección" id="address" name="address" required>
                                 <p id="addressStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Contraseña*</label>
                                 <div class="showRegister">
                                     <img src="./img/login/ojo.png" alt="" class="showPassword" onclick="passwordDisplay()" id="eyeRegister">
                                 </div>
+
                                 <input class="input-text" type="password" placeholder="Escribe una contraseña" id="password" name="password" required>
-                                <p class="info-pass">La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, un número y un caracter especial.</p>
+                                <p class="info-pass">La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una minúscula, un número y un caracter especial ("_", ".", o "!").</p>
                                 <p id="passwordStatus"> </p>
                             </div>
+
                             <div class="form-register__input">
                                 <label for="">Confirmar Contraseña*</label>
                                 <div class="showRegister">
@@ -138,7 +155,10 @@
                             <span class="span-text">¿Ya tiene cuenta? <a href="./login.html">Ingrese acá</a></span>
                         </div>
                         <div>
-                            <input class="button submit-button" type="submit" value="Registrarse" id="registerFormSubmit" onclick="evalRegisterForm()">
+                            <input class="button submit-button" type="submit" value="Registrarse" id="registerFormSubmit" >
+
+                            
+
                         </div>
                     </fieldset>
                 </form>
@@ -154,7 +174,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/api_localidades.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/validate.js"></script>
+    <!-- <script src="js/validate.js"></script> -->
+    <script src="js/eye.js"></script>
+
 
 </body>
 

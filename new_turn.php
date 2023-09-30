@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body id="app">
@@ -28,21 +29,6 @@
         <div class="container">
             <div class="content">
                 <div class="container-turno">
-                    <div>
-                        <img class="img-turno" src="img/avatar-persona.webp" alt="avatar-persona">
-                    </div>
-                    <div class="div-datos">
-                        <h2>Ana Laura García</h2>
-                        <h3>Paciente</h3>
-
-                        <h4>Correo electronico: <span id="correo" value="">analauragarcia.al@gmail.com</span></h4>
-                        <h4>Telefono: <span id="telefono" value="">1120215698</span></h4>
-                        <h4>D.N.I: <span id:="dni" value="">32147896</span></h4>
-
-                    </div>
-
-                    <div class="div-button" id="buttonNewTurn"><button id="btnNuevoTurno" class="button button-turno">Nuevo turno</button>
-                    </div>
 
                     <div class="div-informacion informacion1" id="div-informacion">
                         <p>Seleccione la especialidad y el médico para buscar un turno disponible. Luego seleccione la
@@ -50,33 +36,42 @@
                     </div>
                     <div class="div-form" id="first-block">
 
-                        <form action="" id="formNewTurn1">
+                        <form action="" id="formNewTurn1" method="post">
                             <div class="input-container">
                                 <div class="form-register__input">
                                     <label class="text-label" for="Especialidades"> Especialidad:</label>
-                                    <select class="input-text" name="Especialidades" id="especialidad" required>
+                                    <select class="input-text" name="speciality_id" id="speciality" required>
+
                                         <option value="Seleccione una especialidad" selected disabled>Seleccione una
                                             especialidad</option>
-                                        <option value="Clínica médica">Oculista</option>
-                                        <option value="Pediatría">Oftalmólogo</option>
+
+                                        
+                                            <?php
+                                                include 'php/obtener_especialidad.php';
+
+                                                if ($resultEspecialidades->num_rows > 0) {
+                                                    while ($row = $resultEspecialidades->fetch_assoc()) {
+                                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                                    }
+                                                } else {
+                                                    echo "No se encontraron especialidades.";
+                                                }
+                                                ?>
+                                        
+                                        
                                     </select>
+
                                     <p id="servicesStatus"> </p>
+                                    
                                 </div>
+
                                 <div class="form-register__input">
                                     <label class="text-label" for="Medicos">Profesional:</label>
-                                    <select class="input-text" id="medicos" name="Medicos" required>
-                                        <option value="Seleccione un médico" selected disabled>Seleccione un médico
-                                        </option>
-                                        <optgroup id="esp" value="Oculistas" label="Oculistas">
-                                            <option value="Miller María">Miller María</option>
-                                            <option value="Williams Luis">Williams Luis</option>
-                                        </optgroup>
-                                        <optgroup label="Oftalmólogos">
-                                            <option value="Adams Ana">Adams Ana</option>
-                                            <option value="Moore Carlos">Moore Carlos</option>
-                                        </optgroup>
-                                      
+                                    <select class="input-text" id="professional" name="professional" required>
+                                        <option value="Seleccione un médico" selected disabled>Seleccione un médico</option>    
                                     </select>
+
+                                  
                                     <p id="professionalsStatus"> </p>
                                 </div>
 
@@ -107,18 +102,7 @@
                                         required>
                                     <datalist id="popularHours">
                                         <option value="08:00"></option>
-                                        <option value="09:00"></option>
-                                        <option value="10:00"></option>
-                                        <option value="11:00"></option>
-                                        <option value="12:00"></option>
-                                        <option value="13:00"></option>
-                                        <option value="14:00"></option>
-                                        <option value="15:00"></option>
-                                        <option value="16:00"></option>
-                                        <option value="17:00"></option>
-                                        <option value="18:00"></option>
-                                        <option value="19:00"></option>
-                                    </datalist>
+
                                     <p id="hourStatus"></p>
                                 </div>
                                 <div class="form-register__input">
@@ -147,7 +131,8 @@
     <script src="js/scriptvue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/index.js"></script>
-    <script src="js/validate.js"></script>
+    <script src="js/ajax_turno.js"></script>
+    <!-- <script src="js/validate.js"></script> -->
 </body>
 
 </html>
