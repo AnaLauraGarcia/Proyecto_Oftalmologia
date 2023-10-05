@@ -136,6 +136,15 @@ CREATE TABLE availability (
 );
 
 
+INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
+(1, 1, 'Lunes', '08:00:00', '16:00:00'),
+(2, 2, 'Martes', '08:00:00', '16:00:00'),
+(3, 1, 'Miercoles', '08:00:00', '16:00:00'),
+(1, 2, 'Jueves', '08:00:00', '16:00:00'),
+(3, 3, 'Viernes', '08:00:00', '16:00:00');
+
+
+
 -- Dra. María Miller - Oftalmología
 INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
 (1, 1, 'Lunes', '08:00:00', '12:00:00'),
@@ -191,3 +200,17 @@ FROM professional p
 INNER JOIN availability a ON p.id = a.professional_id
 INNER JOIN speciality s ON a.speciality_id = s.id
 WHERE a.speciality_id = 2 AND p.name= "Maria" ;
+
+
+CREATE TABLE appointments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    professional_id INT,
+    date DATE,
+    time TIME,
+    status ENUM('available', 'occupied'),
+    users_id INT, -- Clave externa que hace referencia al ID del usuario en la tabla users
+    FOREIGN KEY (professional_id) REFERENCES professional(id),
+    FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
+

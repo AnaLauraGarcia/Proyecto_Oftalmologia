@@ -1334,6 +1334,19 @@ color: var(--primario);
     color:red;
 }
 
+.informacion3 {
+    border: 3px solid var(--secundario);
+    border-radius: 3px;
+    padding: 1.5rem 1.5rem;
+    font-size: 3rem;
+}
+
+.informacion3 p {
+    margin: 0;
+    text-align: center;
+    color: var(--primario);
+}
+
 .div-form {
     width: 100%;
 }
@@ -1388,3 +1401,10 @@ color: var(--primario);
         margin: 0;
     }
 }
+
+#professionalsStatus {
+    font-size: 16px; /* Tamaño de fuente */
+    color: #bd1717; /* Color de texto */
+    margin-top: 10px; /* Margen superior */
+    /* Otros estilos que desees aplicar */
+  }

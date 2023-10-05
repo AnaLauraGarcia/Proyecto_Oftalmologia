@@ -23,7 +23,7 @@ const component1 = {
                     </ul>
                 </nav>
                 <div class="nav-buttons">
-                    <a href="new_turn.html" class="button shift-button">Solicitar Turno</a>
+                    <a href="new_turn.php" class="button shift-button">Solicitar Turno</a>
                     <a href="login.php" class="button login-button">Login</a>
                 </div>
                 <div class="menu-responsive" id="menu-responsive">
@@ -33,7 +33,7 @@ const component1 = {
                         <li class="menu-item"><a href="services.html" class="nav__link">Especialidades</a></li>
                         <li class="menu-item"><a href="turns.html" class="nav__link">Mis Turnos</a></li>
                         <li class="menu-item"><a href="contact.html" class="nav__link">Contacto</a></li>
-                        <a href="new_turn.html" class="button shift-button">Solicitar Turno</a>
+                        <a href="new_turn.php" class="button shift-button">Solicitar Turno</a>
                         <a href="login.php" class="button login-button">Login</a>
                     </ul>
                 </div>
