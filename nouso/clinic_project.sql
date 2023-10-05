@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-09-2023 a las 19:11:19
+-- Tiempo de generación: 05-10-2023 a las 20:09:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -20,6 +20,91 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `clinic_project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `appointments`
+--
+
+CREATE TABLE `appointments` (
+  `id` int(11) NOT NULL,
+  `professional_id` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `status` enum('available','occupied') DEFAULT NULL,
+  `users_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `availability`
+--
+
+CREATE TABLE `availability` (
+  `id` int(11) NOT NULL,
+  `professional_id` int(11) DEFAULT NULL,
+  `speciality_id` int(11) DEFAULT NULL,
+  `day_of_week` varchar(20) DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `availability`
+--
+
+INSERT INTO `availability` (`id`, `professional_id`, `speciality_id`, `day_of_week`, `start_time`, `end_time`) VALUES
+(1, 1, 1, 'Lunes', '08:00:00', '16:00:00'),
+(2, 2, 2, 'Martes', '08:00:00', '16:00:00'),
+(3, 3, 1, 'Miercoles', '08:00:00', '16:00:00'),
+(4, 1, 2, 'Jueves', '08:00:00', '16:00:00'),
+(5, 3, 3, 'Viernes', '08:00:00', '16:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `professional`
+--
+
+CREATE TABLE `professional` (
+  `id` int(11) NOT NULL COMMENT 'Primary Key',
+  `lastName` varchar(25) NOT NULL,
+  `name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `professional`
+--
+
+INSERT INTO `professional` (`id`, `lastName`, `name`) VALUES
+(1, 'Miller', 'María'),
+(2, 'Williams', 'Luis'),
+(3, 'Evans', 'Juliana'),
+(4, 'Adams', 'Ana'),
+(5, 'Moore', 'Carlos'),
+(6, 'Taylor', 'Juana');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `speciality`
+--
+
+CREATE TABLE `speciality` (
+  `id` int(11) NOT NULL COMMENT 'Primary Key',
+  `name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `speciality`
+--
+
+INSERT INTO `speciality` (`id`, `name`) VALUES
+(1, 'Oftalmología'),
+(2, 'Optometría'),
+(3, 'Cirugía Ocular');
 
 -- --------------------------------------------------------
 
@@ -51,12 +136,39 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `dni`, `lastName`, `name`, `birthday`, `affiliateName`, `affiliateNumber`, `phone`, `email`, `province`, `city`, `localate`, `zip`, `address`, `password`) VALUES
 (1, 12345678, 'Smith', 'John', '1990-05-15', '123', 'A45678', 2147483647, 'juan@example.com', 'California', 'Los Angeles', 'Downtown', 90001, '123 Main St', '123456M.'),
-(2, 35957362, 'LAURA', 'ANA LAURA', '1991-01-25', '0', '546465456', 1173679577, 'analauragarcia.al@gmail.com', 'Entre Ríos', '', '30021040000', 4565, 'Blabla 123', '1231564M.'),
-(4, 34566745, 'garzon', 'maria', '1991-03-04', '0', '44553423', 1156345678, 'maria@example.com', 'Buenos Aires', '060588', '06588030000', 2131, 'Blabla 12334', '3456Lalfms.3');
+(19, 34567834, 'Velez', 'Mariano', '1991-05-25', '', '', 1534567834, 'mariano@gmail.com', 'Mendoza', '500042', '50042020000', 123456, '345 dfgsdf', '123456');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `appointments`
+--
+ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `professional_id` (`professional_id`),
+  ADD KEY `users_id` (`users_id`);
+
+--
+-- Indices de la tabla `availability`
+--
+ALTER TABLE `availability`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `professional_id` (`professional_id`),
+  ADD KEY `speciality_id` (`speciality_id`);
+
+--
+-- Indices de la tabla `professional`
+--
+ALTER TABLE `professional`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `speciality`
+--
+ALTER TABLE `speciality`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `users`
@@ -71,146 +183,54 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `appointments`
+--
+ALTER TABLE `appointments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `availability`
+--
+ALTER TABLE `availability`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `professional`
+--
+ALTER TABLE `professional`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `speciality`
+--
+ALTER TABLE `speciality`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=20;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `appointments`
+--
+ALTER TABLE `appointments`
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`professional_id`) REFERENCES `professional` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `availability`
+--
+ALTER TABLE `availability`
+  ADD CONSTRAINT `availability_ibfk_1` FOREIGN KEY (`professional_id`) REFERENCES `professional` (`id`),
+  ADD CONSTRAINT `availability_ibfk_2` FOREIGN KEY (`speciality_id`) REFERENCES `speciality` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-use clinic_project;
-
-INSERT INTO speciality (name) VALUES
-  ('Oftalmología'),
-  ('Optometría'),
-  ('Cirugía Ocular');
-
-CREATE TABLE professional (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-    lastName VARCHAR(25) NOT NULL,        
-    name VARCHAR(25) NOT NULL  
-);
-
-
-
-  INSERT INTO professional (lastName, name) VALUES
-  ('Miller', 'María'),             -- Dra. María Miller - Oftalmología
-  ('Williams', 'Luis'),            -- Dr. Luis Williams - Optometría
-  ('Evans', 'Juliana'),            -- Dra. Juliana Evans - Cirugía Ocular
-  ('Adams', 'Ana'),                -- Dra. Ana Adams - Cirugía Ocular
-  ('Moore', 'Carlos'),             -- Dr. Carlos Moore - Oftalmología
-  ('Taylor', 'Juana');             -- Dra. Juana Taylor - Oftalmología
-
-  -- Crear la tabla de asociación "professional_speciality" (Professional Speciality Association)
--- CREATE TABLE professional_speciality (
---   id INT PRIMARY KEY AUTO_INCREMENT,
---   professional_id INT,
---   speciality_id INT,
---   FOREIGN KEY (professional_id) REFERENCES professional(id),
---   FOREIGN KEY (speciality_id) REFERENCES speciality(id)
--- );
-
-
--- INSERT INTO professional_speciality (professional_id, speciality_id) VALUES
---   (1, 1),  -- Dra. María Miller - Oftalmología
---   (1, 2),  -- Dra. María Miller - Optometría
---   (2, 2),  -- Dr. Luis Williams - Optometría
---   (3, 3),  -- Dra. Juliana Evans - Cirugía Ocular
---   (4, 3),  -- Dra. Ana Adams - Cirugía Ocular
---   (5, 1),  -- Dr. Carlos Moore - Oftalmología
---   (6, 1);  -- Dra. Juana Taylor - Oftalmología
-
-
-CREATE TABLE availability (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    professional_id INT,
-    speciality_id INT,
-    day_of_week VARCHAR(20),
-    start_time TIME,
-    end_time TIME,
-    FOREIGN KEY (professional_id) REFERENCES professional(id),
-    FOREIGN KEY (speciality_id) REFERENCES speciality(id)
-);
-
-
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(1, 1, 'Lunes', '08:00:00', '16:00:00'),
-(2, 2, 'Martes', '08:00:00', '16:00:00'),
-(3, 1, 'Miercoles', '08:00:00', '16:00:00'),
-(1, 2, 'Jueves', '08:00:00', '16:00:00'),
-(3, 3, 'Viernes', '08:00:00', '16:00:00');
-
-
-
--- Dra. María Miller - Oftalmología
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(1, 1, 'Lunes', '08:00:00', '12:00:00'),
-(1, 1, 'Miércoles', '12:00:00', '16:00:00'),
-(1, 1, 'Viernes', '08:00:00', '12:00:00');
-
-
--- Dra. María Miller - Optometría
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(1, 2, 'Martes', '08:00:00', '14:00:00'),
-(1, 2, 'Jueves', '08:00:00', '14:00:00');
-
--- Dr. Luis Williams - Optometría
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(2, 2, 'Lunes','12:00:00', '16:00:00'),
-(2, 2, 'Miércoles', '08:00:00', '12:00:00'),
-(2, 2, 'Viernes','12:00:00', '16:00:00');
-
--- Dra. Juliana Evans - Cirugía Ocular
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(3, 3, 'Lunes', '08:00:00', '12:00:00'),
-(3, 3, 'Miércoles', '10:00:00', '14:00:00');
-
--- Dra. Ana Adams - Cirugía Ocular
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(4, 3, 'Martes', '08:00:00', '12:00:00'),
-(4, 3, 'Jueves', '15:00:00', '16:00:00');
-
--- Dr. Carlos Moore - Oftalmología
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(5, 1, 'Martes', '08:00:00', '12:00:00'),
-(5, 1, 'Viernes', '12:00:00', '16:00:00');
-
--- Dra. Juana Taylor - Oftalmología
-INSERT INTO availability (professional_id, speciality_id, day_of_week, start_time, end_time) VALUES
-(6, 1, 'Lunes', '10:00:00', '14:00:00'),
-(6, 1, 'Viernes', '08:00:00', '16:00:00');
-
-
-use clinic_project;
-
-
-SELECT DISTINCT p.name, a.speciality_id
-FROM professional p
-INNER JOIN availability a ON p.id = a.professional_id
-INNER JOIN speciality s ON a.speciality_id = s.id
-WHERE a.speciality_id = 1;
-
-//Seleccioname todos los profesionales que correspondan a una especialidad..
-
-SELECT p.name, a.speciality_id, a.day_of_week
-FROM professional p
-INNER JOIN availability a ON p.id = a.professional_id
-INNER JOIN speciality s ON a.speciality_id = s.id
-WHERE a.speciality_id = 2 AND p.name= "Maria" ;
-
-
-CREATE TABLE appointments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    professional_id INT,
-    date DATE,
-    time TIME,
-    status ENUM('available', 'occupied'),
-    users_id INT, -- Clave externa que hace referencia al ID del usuario en la tabla users
-    FOREIGN KEY (professional_id) REFERENCES professional(id),
-    FOREIGN KEY (users_id) REFERENCES users(id)
-);
-
-
