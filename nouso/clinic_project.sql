@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2023 a las 20:09:56
+-- Tiempo de generación: 06-10-2023 a las 06:22:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -35,6 +35,50 @@ CREATE TABLE `appointments` (
   `status` enum('available','occupied') DEFAULT NULL,
   `users_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `professional_id`, `date`, `time`, `status`, `users_id`) VALUES
+(1, NULL, NULL, NULL, 'available', 1),
+(2, NULL, NULL, NULL, 'available', 1),
+(3, NULL, NULL, NULL, 'available', 1),
+(4, NULL, NULL, NULL, 'available', 1),
+(5, NULL, NULL, NULL, 'available', 1),
+(6, NULL, NULL, NULL, 'available', 1),
+(7, 3, NULL, NULL, 'available', 1),
+(8, 1, NULL, NULL, 'available', 1),
+(9, 3, '2023-10-20', '09:30:00', 'available', 1),
+(10, NULL, '2023-10-20', '09:30:00', 'available', 1),
+(11, 1, '2023-10-12', '10:00:00', 'available', 1),
+(12, NULL, '2023-10-12', '10:00:00', 'available', 1),
+(13, 3, '2023-10-12', '11:00:00', 'available', 1),
+(14, NULL, '2023-10-12', '11:00:00', 'available', 1),
+(15, 3, '2023-10-20', '09:30:00', 'available', 1),
+(16, 3, '2023-10-13', '10:00:00', 'available', 1),
+(17, NULL, '2023-10-13', '10:00:00', 'available', 1),
+(18, 1, '2023-10-17', '09:30:00', 'available', 1),
+(19, NULL, '2023-10-17', '09:30:00', 'available', 1),
+(20, 3, '2023-10-12', '11:30:00', 'available', 1),
+(21, NULL, '2023-10-12', '11:30:00', 'available', 1),
+(22, 3, '2023-10-13', '09:30:00', 'available', 1),
+(23, NULL, '2023-10-13', '09:30:00', 'available', 1),
+(24, 3, '2023-10-18', '11:30:00', 'available', 1),
+(25, NULL, '2023-10-18', '11:30:00', 'available', 1),
+(26, 3, '2023-10-19', '10:00:00', 'available', 1),
+(27, NULL, '2023-10-19', '10:00:00', 'available', 1),
+(28, 2, '2023-10-12', '09:00:00', 'available', 1),
+(29, NULL, '2023-10-12', '09:00:00', 'available', 1),
+(30, 2, '2023-10-20', '12:30:00', 'available', 1),
+(31, NULL, '2023-10-20', '12:30:00', 'available', 1),
+(32, 3, '2023-10-21', '11:00:00', 'available', 1),
+(33, NULL, '2023-10-21', '11:00:00', 'available', 1),
+(34, 3, '2023-10-17', '10:00:00', 'available', 1),
+(35, NULL, '2023-10-17', '10:00:00', 'available', 1),
+(36, 1, '2023-10-17', '10:00:00', 'available', 1),
+(37, 1, '2023-10-12', '11:00:00', 'available', 1),
+(38, NULL, '2023-10-12', '11:00:00', 'available', 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +230,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `availability`

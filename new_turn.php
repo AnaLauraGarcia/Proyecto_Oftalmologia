@@ -92,6 +92,7 @@
 
                                             // Variable para almacenar el ID de la especialidad seleccionada
                                             var selectedSpecialityId;
+                                            
 
                                             // Agrega un controlador de eventos al elemento select de especialidades
                                             specialitySelect.addEventListener("change", function () {
@@ -108,6 +109,7 @@
                                                         success: function (response) {
                                                             // Actualizar el segundo select con las opciones de profesionales
                                                             $("#professional").html(response);
+                                                            professionalSelect.value = "Seleccione un médico";
                                                         },
                                                     });
                                                 }
@@ -199,10 +201,7 @@
                                     
                                     <p id="hourStatus"></p>
                                 </div>
-                                <div class="form-register__input">
-                                    <label for="consultorio">Consultorio</label>
-                                    <input class="input-text" type="text" name="hour" value="" id="consultorio" readonly>
-                                </div>
+                                
                             </div>
                             <div class=" div-button " id="boton">
                                 <input class="button button-turno" type="button" value="Registrar" id="btnAgregar">
