@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 06:22:51
+-- Tiempo de generación: 06-10-2023 a las 21:32:35
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
+  `speciality_id` int(11) DEFAULT NULL,
   `professional_id` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
@@ -40,45 +41,20 @@ CREATE TABLE `appointments` (
 -- Volcado de datos para la tabla `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `professional_id`, `date`, `time`, `status`, `users_id`) VALUES
-(1, NULL, NULL, NULL, 'available', 1),
-(2, NULL, NULL, NULL, 'available', 1),
-(3, NULL, NULL, NULL, 'available', 1),
-(4, NULL, NULL, NULL, 'available', 1),
-(5, NULL, NULL, NULL, 'available', 1),
-(6, NULL, NULL, NULL, 'available', 1),
-(7, 3, NULL, NULL, 'available', 1),
-(8, 1, NULL, NULL, 'available', 1),
-(9, 3, '2023-10-20', '09:30:00', 'available', 1),
-(10, NULL, '2023-10-20', '09:30:00', 'available', 1),
-(11, 1, '2023-10-12', '10:00:00', 'available', 1),
-(12, NULL, '2023-10-12', '10:00:00', 'available', 1),
-(13, 3, '2023-10-12', '11:00:00', 'available', 1),
-(14, NULL, '2023-10-12', '11:00:00', 'available', 1),
-(15, 3, '2023-10-20', '09:30:00', 'available', 1),
-(16, 3, '2023-10-13', '10:00:00', 'available', 1),
-(17, NULL, '2023-10-13', '10:00:00', 'available', 1),
-(18, 1, '2023-10-17', '09:30:00', 'available', 1),
-(19, NULL, '2023-10-17', '09:30:00', 'available', 1),
-(20, 3, '2023-10-12', '11:30:00', 'available', 1),
-(21, NULL, '2023-10-12', '11:30:00', 'available', 1),
-(22, 3, '2023-10-13', '09:30:00', 'available', 1),
-(23, NULL, '2023-10-13', '09:30:00', 'available', 1),
-(24, 3, '2023-10-18', '11:30:00', 'available', 1),
-(25, NULL, '2023-10-18', '11:30:00', 'available', 1),
-(26, 3, '2023-10-19', '10:00:00', 'available', 1),
-(27, NULL, '2023-10-19', '10:00:00', 'available', 1),
-(28, 2, '2023-10-12', '09:00:00', 'available', 1),
-(29, NULL, '2023-10-12', '09:00:00', 'available', 1),
-(30, 2, '2023-10-20', '12:30:00', 'available', 1),
-(31, NULL, '2023-10-20', '12:30:00', 'available', 1),
-(32, 3, '2023-10-21', '11:00:00', 'available', 1),
-(33, NULL, '2023-10-21', '11:00:00', 'available', 1),
-(34, 3, '2023-10-17', '10:00:00', 'available', 1),
-(35, NULL, '2023-10-17', '10:00:00', 'available', 1),
-(36, 1, '2023-10-17', '10:00:00', 'available', 1),
-(37, 1, '2023-10-12', '11:00:00', 'available', 1),
-(38, NULL, '2023-10-12', '11:00:00', 'available', 1);
+INSERT INTO `appointments` (`id`, `speciality_id`, `professional_id`, `date`, `time`, `status`, `users_id`) VALUES
+(3, 2, 1, '2023-10-11', '12:30:00', 'occupied', 1),
+(5, 2, 2, '2023-10-11', '15:30:00', 'occupied', 1),
+(6, 3, 3, '2023-10-10', '12:30:00', 'occupied', 1),
+(8, 2, 1, '2023-10-11', '15:30:00', 'occupied', 1),
+(9, 3, 3, '2023-10-11', '10:30:00', 'occupied', 1),
+(10, 2, 2, '2023-10-10', '11:00:00', 'occupied', 1),
+(11, 2, 1, '2023-10-18', '10:00:00', 'occupied', 1),
+(12, 2, 2, '2023-10-13', '11:00:00', 'occupied', 1),
+(13, 2, 1, '2023-10-10', '10:30:00', 'occupied', 1),
+(14, 1, 3, '2023-10-11', '09:30:00', 'occupied', 1),
+(15, 2, 1, '2023-10-20', '10:00:00', 'occupied', 1),
+(16, 1, 3, '2023-10-17', '10:30:00', 'occupied', 1),
+(17, 3, 3, '2023-10-11', '10:00:00', 'occupied', 1);
 
 -- --------------------------------------------------------
 
@@ -191,6 +167,7 @@ INSERT INTO `users` (`id`, `dni`, `lastName`, `name`, `birthday`, `affiliateName
 --
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `speciality_id` (`speciality_id`),
   ADD KEY `professional_id` (`professional_id`),
   ADD KEY `users_id` (`users_id`);
 
@@ -230,7 +207,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `availability`
@@ -264,8 +241,9 @@ ALTER TABLE `users`
 -- Filtros para la tabla `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`professional_id`) REFERENCES `professional` (`id`),
-  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`speciality_id`) REFERENCES `speciality` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`professional_id`) REFERENCES `professional` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `availability`
