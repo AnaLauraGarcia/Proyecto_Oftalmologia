@@ -3,7 +3,7 @@ const component1 = {
     template: `
     <div class="container">
             <div class="header-row">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <img src="img/logo.webp" alt="Logo">
                 </a>
                 <nav class="nav">
@@ -18,7 +18,7 @@ const component1 = {
                                         class="nav__link">Oftalmología</a></li>
                             </ul>
                         </li>
-                        <li class="menu-item"><a href="turns.html" class="nav__link">Mis Turnos</a></li>
+                        <li class="menu-item"><a href="turns.php" class="nav__link">Mis Turnos</a></li>
                         <li class="menu-item"><a href="contact.html" class="nav__link">Contacto</a></li>
                     </ul>
                 </nav>
@@ -51,7 +51,7 @@ const component2 = {
             <div class="footer-grid">
                 <div class="footer-flex">
                     <div>
-                        <a href="index.html" class="logo logo-footer">
+                        <a href="index.php" class="logo logo-footer">
                             <img src="img/logo.webp" alt="Logo" width="70px">
                         </a>
                     </div>

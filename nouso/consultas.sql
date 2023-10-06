@@ -204,17 +204,35 @@ WHERE a.speciality_id = 2 AND p.name= "Maria" ;
 
 CREATE TABLE appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    professional_id INT,
+    speciality_id INT,
+    professional_id INT,    
     date DATE,
     time TIME,
     status ENUM('available', 'occupied'),
     users_id INT, -- Clave externa que hace referencia al ID del usuario en la tabla users
-    FOREIGN KEY (professional_id) REFERENCES professional(id),
+    FOREIGN KEY (speciality_id) REFERENCES speciality(id),
+    FOREIGN KEY (professional_id) REFERENCES professional(id),  
     FOREIGN KEY (users_id) REFERENCES users(id)
 );
+
+
+INSERT INTO appointments (professional_id, speciality_id, date, time, status, users_id)
+VALUES
+    (1, 1, '2023-10-06', '08:00:00', 'occupied', 1),
+    (1, 2, '2023-10-08', '08:30:00', 'occupied', 1),
+    (2, 2, '2023-10-06', '09:00:00', 'occupied', 1),
+    (1, 1, '2023-10-06', '09:30:00', 'occupied', 1),
+    (1, 1, '2023-10-06', '10:00:00', 'occupied', 1);
 
 
 
 
 INSERT INTO appointments (professional_id, date, time, status, users_id)
 VALUES (1, '2023-10-17', '10:00', 'available', 1);
+
+
+SELECT a.date, a.time, s.name AS speciality, p.name AS professional
+FROM appointments AS a
+INNER JOIN speciality AS s ON a.speciality_id = s.id
+INNER JOIN professional AS p ON a.professional_id = p.id
+WHERE a.users_id = 1;

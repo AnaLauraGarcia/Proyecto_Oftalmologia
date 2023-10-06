@@ -209,10 +209,12 @@
                                             return;
                                         }
 
+                                        var speciality = document.getElementById("speciality").value;
                                         var professional = document.getElementById("professional").value;
                                         var dia = document.getElementById("date").value;
                                         var horario = document.getElementById("hour").value;
 
+                                        console.log("Especialidad seleccionada:", speciality);
                                         console.log("Profesional seleccionado:", professional);
                                         console.log("Día seleccionado:", dia);
                                         console.log("Horario seleccionado:", horario);
@@ -223,6 +225,7 @@
                                             type: "POST",
                                             url: "php/verificar_turno_disponible.php",
                                             data: {
+                                                speciality: speciality,
                                                 professional: professional,
                                                 dia: dia,
                                                 horario: horario
@@ -230,7 +233,8 @@
                                             success: function (response) {
                                                 console.log(response);
                                                 if (response === "exito") {
-                                                    guardarTurno(professional, dia, horario);
+                                                    guardarTurno(speciality, professional, dia, horario);
+                                     
                                                 } else {
                                                     alert("El turno seleccionado no está disponible. Por favor, elige otro horario.");
 

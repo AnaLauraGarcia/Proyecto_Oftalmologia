@@ -76,25 +76,26 @@
                                 <img src="img/proffesionals/dra6.webp" alt="Dra. María Miller">
                             </div>
                             <h3>Dra. María Miller</h3>
-                            <p>Oculista especializada en cirugía refractiva y corrección de problemas de visión.</p>
+                            <p>Oftalmóloga especializada en optometría y corrección de problemas de visión.</p>
                         </div>
                     </div>
                     <div class="grid-item">
                         <div class="grid-item__content">
                             <div>
-                                <img src="img/proffesionals/dc1.webp" alt="Dr. Luis Williams">
+                                <img src="img/proffesionals/dc2.webp" alt="Dr. Luis Williams">
                             </div>
                             <h3>Dr. Luis Williams</h3>
-                            <p>Oculista con experiencia en lentes de contacto y adaptación de prótesis oculares.</p>
+                            <p>Oculista optometrico dedicado al diagnóstico y tratamiento de enfermedades del glaucoma.</p>
                         </div>
                     </div>
                     <div class="grid-item">
                         <div class="grid-item__content">
                             <div>
-                                <img src="img/proffesionals/dra4.webp" alt="Dr. Juana Taylor">
+                                <img src="img/proffesionals/dra5.webp" alt="Enfermera Juliana Evans">
                             </div>
-                            <h3>Dra. Juana Taylor</h3>
-                            <p>Oftalmóloga dedicada al diagnóstico y tratamiento de enfermedades del glaucoma.</p>
+                            <h3>Dra. Juliana Evans</h3>
+                            <p>Oftalmóloga con enfoque en el diagnóstico y tratamiento de cirugías oculares.</p>
+                        </div>
                     </div>
                 </div>
             </div>

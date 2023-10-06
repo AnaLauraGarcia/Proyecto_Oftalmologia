@@ -3,14 +3,15 @@ include 'conexion_be.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
+    $speciality = $_POST["speciality"];
     $professional = $_POST["professional"];
     $dia = $_POST["dia"];
     $horario = $_POST["horario"]; 
     
     
-    $sqlVerificarTurno = "SELECT * FROM appointments WHERE professional_id = ? AND date = ? AND time = ?";
+    $sqlVerificarTurno = "SELECT * FROM appointments WHERE speciality_id = ? AND professional_id = ? AND date = ? AND time = ?";
     $stmtVerificarTurno = $conexion->prepare($sqlVerificarTurno);
-    $stmtVerificarTurno->bind_param("iss", $professional, $dia, $horario);
+    $stmtVerificarTurno->bind_param("iiss", $speciality, $professional, $dia, $horario);
     $stmtVerificarTurno->execute();
 
 
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($turnoDisponible) {
            
-            guardarTurno($professional, $dia, $horario);
+            guardarTurno($speciality, $professional, $dia, $horario);
         } else {
             echo "no_disponible";
         }
@@ -42,14 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-function guardarTurno($professional, $dia, $horario) {
+function guardarTurno($speciality, $professional, $dia, $horario) {
     global $conexion;
 
     
-    $sql = "INSERT INTO appointments (professional_id, date, time, status, users_id)
-            VALUES (?, ?, ?, 'occupied', 1)";
+    $sql = "INSERT INTO appointments (speciality_id, professional_id, date, time, status, users_id)
+            VALUES (?, ?, ?, ?, 'occupied', 1)";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("iss", $professional, $dia, $horario);
+    $stmt->bind_param("iiss", $speciality, $professional, $dia, $horario);
 
     
     if (!$stmt) {
@@ -59,6 +60,8 @@ function guardarTurno($professional, $dia, $horario) {
    
     if ($stmt->execute()) {
         echo "exito"; 
+        // header("Location: ../turns.php");
+
     } else {
         die("Error en la ejecución de la consulta: " . $stmt->error);
     }
