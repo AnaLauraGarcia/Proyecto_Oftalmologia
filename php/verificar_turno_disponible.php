@@ -1,47 +1,69 @@
 <?php
 include 'conexion_be.php'; 
-// Verifica si se ha recibido la solicitud POST
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recopila los datos del formulario
+    
     $professional = $_POST["professional"];
     $dia = $_POST["dia"];
     $horario = $_POST["horario"]; 
     
-    // Asegúrate de que coincida con el nombre del campo en tu formulario
+    
+    $sqlVerificarTurno = "SELECT * FROM appointments WHERE professional_id = ? AND date = ? AND time = ?";
+    $stmtVerificarTurno = $conexion->prepare($sqlVerificarTurno);
+    $stmtVerificarTurno->bind_param("iss", $professional, $dia, $horario);
+    $stmtVerificarTurno->execute();
 
-    // Verifica si el turno está disponible (puedes implementar esta lógica según tus necesidades)
 
-    $turnoDisponible = "disponible"; // Cambia esto según tu lógica de disponibilidad
+    $resultVerificarTurno = $stmtVerificarTurno->get_result();
 
-    if ($turnoDisponible) {
-        // Aquí va la lógica para verificar la disponibilidad del turno
+    if ($resultVerificarTurno->num_rows > 0) {
+        
+        $row = $resultVerificarTurno->fetch_assoc();
+        $estadoTurno = $row["status"];
 
-        // Luego, si el turno está disponible, puedes continuar con la inserción de datos en la base de datos
-        // Incluye el archivo de conexión a la base de datos
-
-        // Prepara la consulta SQL para insertar el turno
-        $sql = "INSERT INTO appointments (professional_id, date, time, status, users_id)
-                VALUES (?, ?, ?, 'available', 1)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("iss", $professional, $dia, $horario);
-
-        // Después de la preparación de la consulta
-        if (!$stmt) {
-            die("Error en la preparación de la consulta: " . $conexion->error);
+        
+        if ($estadoTurno == "occupied") {
+            echo "turno_ocupado"; 
         }
-
-        // Después de la ejecución de la consulta
-        if ($stmt->execute()) {
-            echo "exito"; // Indica éxito en la inserción
-        } else {
-            die("Error en la ejecución de la consulta: " . $stmt->error);
-        }
-
-        // Cierra la conexión
-        $stmt->close();
-        $conexion->close();
     } else {
-        echo "no_disponible"; // Indica que el turno no está disponible
+        
+        $turnoDisponible = true;
+
+        if ($turnoDisponible) {
+           
+            guardarTurno($professional, $dia, $horario);
+        } else {
+            echo "no_disponible";
+        }
     }
+
+    $stmtVerificarTurno->close();
+    $conexion->close();
+}
+
+
+function guardarTurno($professional, $dia, $horario) {
+    global $conexion;
+
+    
+    $sql = "INSERT INTO appointments (professional_id, date, time, status, users_id)
+            VALUES (?, ?, ?, 'occupied', 1)";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("iss", $professional, $dia, $horario);
+
+    
+    if (!$stmt) {
+        die("Error en la preparación de la consulta: " . $conexion->error);
+    }
+
+   
+    if ($stmt->execute()) {
+        echo "exito"; 
+    } else {
+        die("Error en la ejecución de la consulta: " . $stmt->error);
+    }
+
+    
+    $stmt->close();
 }
 ?>

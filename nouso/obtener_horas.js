@@ -19,6 +19,4 @@ function generarHorarios() {
         tiempoInicio.setMinutes(tiempoInicio.getMinutes() + 30);
     }
     
-    // Ahora puedes enviar estos horarios a tu servidor para guardarlos en la base de datos mediante una solicitud HTTP (AJAX).
-    // Dependiendo de tu backend, deberás implementar la lógica para guardar los horarios en la base de datos.
 }

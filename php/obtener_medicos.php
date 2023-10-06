@@ -1,7 +1,6 @@
 <?php
 include 'conexion_be.php';
 
-// Verificar si hay al menos una especialidad
 if (isset($_POST['speciality_id'])) {
     $specialityId = $_POST['speciality_id'];
 

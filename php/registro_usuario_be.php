@@ -24,7 +24,6 @@
     ('$dni', '$lastName', '$name', '$birthday', '$affiliateName', '$affiliateNumber', '$phone', '$email', '$province', '$city', '$localate', '$zip', '$address', '$password')
 ";
 
-// Verificar que el correo no se repita en la BBHH
 
     $verificar_email = mysqli_query($conexion, "SELECT * FROM users WHERE email='$email'");
 

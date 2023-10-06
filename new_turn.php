@@ -84,23 +84,17 @@
                                         document.addEventListener("DOMContentLoaded", function () {
                                             console.log("El DOM se ha cargado.");
 
-                                            // Obtiene el elemento select de especialidades
                                             var specialitySelect = document.getElementById("speciality");
 
-                                            // Obtiene el elemento select de médicos
                                             var professionalSelect = document.getElementById("professional");
 
-                                            // Variable para almacenar el ID de la especialidad seleccionada
                                             var selectedSpecialityId;
                                             
 
-                                            // Agrega un controlador de eventos al elemento select de especialidades
                                             specialitySelect.addEventListener("change", function () {
                                                 console.log("Cambio en la selección de especialidad");
-                                                // Obtén el valor seleccionado
                                                 selectedSpecialityId = specialitySelect.value;
 
-                                                // Llama a la función deseada con el valor seleccionado
                                                 if (selectedSpecialityId) {
                                                     $.ajax({
                                                         type: "POST",
@@ -115,16 +109,11 @@
                                                 }
                                             });
 
-                                            // Agrega un controlador de eventos al elemento select de médicos
                                             professionalSelect.addEventListener("change", function () {
-                                                // Obtén el valor seleccionado del médico y guárdalo en selectedProfessional
                                                 var selectedProfessional = professionalSelect.value;
 
-                                                // Muestra un mensaje en la consola cuando se selecciona un médico
                                                 console.log("Médico seleccionado: " + selectedProfessional);
 
-                                                // Realiza la solicitud AJAX aquí dentro, para asegurarte de que selectedProfessional esté definida
-                                                // y tenga el valor correcto al hacer la solicitud.
                                                 $.ajax({
                                                     type: "POST",
                                                     url: "php/mostrar_dias_hora.php",
@@ -135,10 +124,8 @@
                                                         console.log(response);
                                                         var responseData = JSON.parse(response);
 
-                                                        // Accede a la propiedad "availabilityText" del objeto
                                                         var availabilityText = responseData.availabilityText;
 
-                                                        // Actualiza el contenido del elemento <p> con id "professionalsStatus"
                                                         var professionalsStatusElement = document.getElementById("professionalsStatus");
                                                         professionalsStatusElement.textContent = "Atiende los: " + availabilityText;
 
@@ -209,20 +196,19 @@
                             </div>
 
                             <script>
-                                // Variable para verificar si el turno ya se ha guardado
-                                var turnoGuardado = false;
-
-                                // Agrega un controlador de eventos al botón "Registrar"
                                 document.addEventListener("DOMContentLoaded", function () {
-                                    // Agrega un controlador de eventos al botón "Registrar"
+                                    console.log("El DOM se ha cargado.");
+
+                                    var turnoGuardado = false; 
+
+                                    
                                     document.getElementById("btnAgregar").addEventListener("click", function () {
-                                        // Si el turno ya se ha guardado, muestra un mensaje de alerta y no realiza ninguna acción
+                                       
                                         if (turnoGuardado) {
                                             alert("El turno ya se ha guardado anteriormente.");
                                             return;
                                         }
 
-                                        // Recopila los datos del formulario
                                         var professional = document.getElementById("professional").value;
                                         var dia = document.getElementById("date").value;
                                         var horario = document.getElementById("hour").value;
@@ -231,7 +217,8 @@
                                         console.log("Día seleccionado:", dia);
                                         console.log("Horario seleccionado:", horario);
 
-                                        // Realiza una solicitud AJAX para verificar la disponibilidad del turno
+                                        document.getElementById("btnAgregar").disabled = true;
+
                                         $.ajax({
                                             type: "POST",
                                             url: "php/verificar_turno_disponible.php",
@@ -243,49 +230,22 @@
                                             success: function (response) {
                                                 console.log(response);
                                                 if (response === "exito") {
-                                                    // El turno está disponible, ahora puedes llamar a la función para guardar el turno
                                                     guardarTurno(professional, dia, horario);
                                                 } else {
-                                                    // El turno no está disponible, muestra un mensaje de aviso al usuario
                                                     alert("El turno seleccionado no está disponible. Por favor, elige otro horario.");
+
+                                                    // Habilita el botón nuevamente para que el usuario pueda intentar de nuevo
+                                                    document.getElementById("btnAgregar").disabled = false;
                                                 }
                                             },
                                             error: function (xhr, status, error) {
-                                                // Maneja errores si ocurren
+                                                // Habilita el botón nuevamente en caso de error
+                                                document.getElementById("btnAgregar").disabled = false;
                                             }
                                         });
                                     });
                                 });
-
-                                // Función para guardar el turno en la base de datos
-                                function guardarTurno(professional, dia, horario) {
-                                    // Marca el turno como guardado
-                                    turnoGuardado = true;
-
-                                    // Realiza una solicitud AJAX para guardar los datos del turno
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "php/verificar_turno_disponible.php", // Ruta al archivo PHP que guarda el turno en la base de datos
-                                        data: {
-                                            profesional: professional,
-                                            dia: dia,
-                                            horario: horario
-                                        },
-                                        success: function (response) {
-                                            // Procesa la respuesta del servidor (puede ser una confirmación de éxito o error)
-                                            if (response === "exito") {
-                                                alert("El turno se ha registrado exitosamente.");
-                                            } else {
-                                                alert("Hubo un error al registrar el turno. Por favor, inténtalo nuevamente.");
-                                            }
-                                        },
-                                        error: function (xhr, status, error) {
-                                            // Maneja errores si ocurren
-                                        }
-                                    });
-                                }
-                                this.disabled = true;
-                                </script>
+                            </script>
 
                         </form>
                     </div>
