@@ -214,3 +214,7 @@ CREATE TABLE appointments (
 );
 
 
+
+
+INSERT INTO appointments (professional_id, date, time, status, users_id)
+VALUES (1, '2023-10-17', '10:00', 'available', 1);

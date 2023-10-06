@@ -82,7 +82,8 @@
     <script src="js/components.js"></script>
     <script src="js/scriptvue.js"></script>
 
-    <script src="js/validate.js"></script>
+    <script src="js/eye.js"></script>
+
 </body>
 </body>
 
