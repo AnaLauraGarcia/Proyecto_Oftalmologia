@@ -239,7 +239,7 @@
                                                 }
                                             },
                                             error: function (xhr, status, error) {
-                                                // Habilita el botón nuevamente en caso de error
+                                                
                                                 document.getElementById("btnAgregar").disabled = false;
                                             }
                                         });
