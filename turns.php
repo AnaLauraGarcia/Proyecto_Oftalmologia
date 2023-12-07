@@ -62,7 +62,7 @@
                                 echo '<td>' . $row['speciality'] . '</td>';
                                 echo '<td>' . $row['professional'] . '</td>';
                                 echo '<td class="actions">';
-                                echo '<button>Modificar</button>';
+                                echo '<button class="Modificar" data-id="' . $row['id'] . '">Modificar</button>';
                                 echo '<button class="Eliminar" data-id="' . $row['id'] . '">Eliminar</button>';
                                 echo '</td>';
                                 echo '</tr>';
@@ -87,6 +87,26 @@
     <script src="js/index.js"></script>
     <script>
         $(document).ready(function() {
+
+          
+            $('.Modificar').click(function() {
+                var idTurno = $(this).data('id');
+                var fila = $(this).closest('tr');  // Obtener la fila correspondiente al botón de modificar
+                var date = fila.find('td').eq(0).text();  // Obtener la fecha desde la fila
+                var time = fila.find('td').eq(1).text();  // Obtener la hora desde la fila
+                var speciality = fila.find('td').eq(2).text();  // Obtener la especialidad desde la fila
+                var professional = fila.find('td').eq(3).text();  // Obtener el profesional desde la fila
+
+                // Guardar los datos del turno en localStorage
+                localStorage.setItem('idTurno', idTurno);
+                localStorage.setItem('date', date);
+                localStorage.setItem('time', time);
+                localStorage.setItem('speciality', speciality);
+                localStorage.setItem('professional', professional);
+
+                // Redirigir a la página de modificación
+                window.location.href = 'modify_turn.php';
+            });
             
             $('.Eliminar').click(function() {
                 var idTurno = $(this).data('id');

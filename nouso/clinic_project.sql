@@ -256,3 +256,14 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+use clinic_project;
+
+SELECT p.name, s.name, a.day_of_week FROM availability a 
+INNER JOIN professional p ON p.id = a.professional_id
+INNER JOIN speciality s ON s.id = a.speciality_id
+WHERE professional_id = 1 AND speciality_id = 1
+
+SELECT a.time
+FROM appointments a
+WHERE DATE(date) =  '2023-10-20' ;

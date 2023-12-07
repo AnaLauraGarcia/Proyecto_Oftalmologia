@@ -27,46 +27,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "turno_ocupado"; 
         }
     } else {
-        
-        $turnoDisponible = true;
+        $sql = "INSERT INTO appointments (speciality_id, professional_id, date, time, status, users_id)
+            VALUES (?, ?, ?, ?, 'occupied', 1)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("iiss", $speciality, $professional, $dia, $horario);
 
-        if ($turnoDisponible) {
-           
-            guardarTurno($speciality, $professional, $dia, $horario);
-        } else {
-            echo "no_disponible";
+        if (!$stmt) {
         }
+
+        if ($stmt->execute()) {
+           
+            echo "exito";
+            
+        } else {
+            die("Error en la ejecución de la consulta: " . $stmt->error);
+        }
+
+        $stmt->close();
     }
 
     $stmtVerificarTurno->close();
     $conexion->close();
-}
-
-
-function guardarTurno($speciality, $professional, $dia, $horario) {
-    global $conexion;
-
-    
-    $sql = "INSERT INTO appointments (speciality_id, professional_id, date, time, status, users_id)
-            VALUES (?, ?, ?, ?, 'occupied', 1)";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("iiss", $speciality, $professional, $dia, $horario);
-
-    
-    if (!$stmt) {
-        die("Error en la preparación de la consulta: " . $conexion->error);
-    }
-
-   
-    if ($stmt->execute()) {
-        echo "exito"; 
-        // header("Location: ../turns.php");
-
-    } else {
-        die("Error en la ejecución de la consulta: " . $stmt->error);
-    }
-
-    
-    $stmt->close();
 }
 ?>

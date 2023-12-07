@@ -33,7 +33,7 @@ if (isset($_POST['professional_id'])) {
             $startTime = $row['start_time'];
             $endTime = $row['end_time'];
 
-            $availabilityText .= "$day - Desde: $startTime hasta: $endTime, ";
+            $availabilityText .= "$day de $startTime a $endTime, ";
          
         }
 

@@ -1408,3 +1408,7 @@ color: var(--primario);
     margin-top: 10px; /* Margen superior */
     /* Otros estilos que desees aplicar */
   }
+
+  #professionalsDate {
+    color: red;
+  }

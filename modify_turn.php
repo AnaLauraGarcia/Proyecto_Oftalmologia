@@ -1,3 +1,41 @@
+<?php
+
+include 'php/conexion_be.php';
+
+
+?>
+
+<script>
+    var idTurno = localStorage.getItem('idTurno') || '';
+    var fecha = localStorage.getItem('date') || '';
+    var hora = localStorage.getItem('time') || '';
+    var especialidad = localStorage.getItem('speciality') || '';
+    var profesional = localStorage.getItem('professional') || '';
+
+
+
+
+    $.ajax({
+        type: 'POST',
+        url: 'php/obtener_id.php', // La ruta correcta para obtener el ID de la especialidad
+        data: { especialidad: especialidad, profesional:profesional }, // Especifica los datos que se enviarán al servidor
+        success: function(response) {
+
+            var especialidadID = response; // Suponiendo que la respuesta es el ID de la especialidad
+            console.log("ID Turno:", idTurno);
+            console.log("Fecha:", fecha);
+            console.log("Hora:", hora);
+            console.log("Especialidad ID:", especialidadID);
+            console.log("Profesional:", profesional);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud AJAX: " + error);
+        }
+    });
+
+
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +62,7 @@
     <main class="main">
         <section class="hero">
             <div class="container">
-                <h1>Solicitar Turno</h1>
+                <h1>Modificar Turno</h1>
             </div>
         </section>
         <div class="container">
@@ -49,25 +87,20 @@
                             <div class="input-container">
                                 <div class="form-register__input">
                                     <label class="text-label" for="Especialidades"> Especialidad:</label>
+                                    
                                     <select class="input-text" name="speciality_id" id="speciality" required>
-
-                                        <option value="Seleccione una especialidad" selected disabled>Seleccione una
-                                            especialidad</option>
-
-                                        
-                                            <?php
-                                                include 'php/obtener_especialidad.php';
-
-                                                if ($resultEspecialidades->num_rows > 0) {
-                                                    while ($row = $resultEspecialidades->fetch_assoc()) {
-                                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                                    }
-                                                } else {
-                                                    echo "No se encontraron especialidades.";
-                                                }
-                                                ?>
-                                        
-                                        
+                                        <option value="Seleccione una especialidad" disabled>Seleccione una especialidad</option>
+                                        <?php
+                                        // Recuperar las especialidades
+                                        if ($resultEspecialidades->num_rows > 0) {
+                                            while ($row = $resultEspecialidades->fetch_assoc()) {
+                                                
+                                                echo '<option value="' . $row['id'] . '"' . ($especialidad == $row['id'] ? 'selected' : '') . '>' . $row['name'] . '</option>';
+                                            }
+                                        } else {
+                                            echo "No se encontraron especialidades.";
+                                        }
+                                        ?>
                                     </select>
 
                                     <p id="servicesStatus"> </p>
@@ -348,9 +381,8 @@
     <script src="js/scriptvue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/index.js"></script>
-    <!-- <script src="js/ajax_turno.js"></script> -->
-    <script src="js/obtener_horas.js"></script>
-    <!-- <script src="js/validate.js"></script> -->
+
 </body>
 
 </html>
+
