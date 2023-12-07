@@ -1,3 +1,15 @@
+<?php
+    include 'php/conexion_be.php';
+
+    // Verifica si el usuario está autenticado
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+        header("Location: login.php");
+        exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,14 +55,14 @@
                     <tbody>
                         <?php
                         include 'php/conexion_be.php';
+                        $user_id = $_SESSION['user_id'];
                     
-                        // Realiza una consulta para obtener los turnos desde la base de datos
                         $sql = "SELECT a.id, a.date, a.time, s.name AS speciality, p.name AS professional
-                        FROM appointments AS a
-                        INNER JOIN speciality AS s ON a.speciality_id = s.id
-                        INNER JOIN professional AS p ON a.professional_id = p.id
-                        WHERE a.users_id = 1
-                        ORDER BY a.date ASC;"; // Cambia el ID de usuario según tus necesidades
+                            FROM appointments AS a
+                            INNER JOIN speciality AS s ON a.speciality_id = s.id
+                            INNER JOIN professional AS p ON a.professional_id = p.id
+                            WHERE a.users_id = $user_id
+                            ORDER BY a.date ASC;";
                     
                         $result = $conexion->query($sql);
                     
@@ -85,17 +97,16 @@
     <script src="js/components.js"></script>
     <script src="js/scriptvue.js"></script>
     <script src="js/index.js"></script>
+    
     <script>
         $(document).ready(function() {
-
-          
             $('.Modificar').click(function() {
                 var idTurno = $(this).data('id');
-                var fila = $(this).closest('tr');  // Obtener la fila correspondiente al botón de modificar
-                var date = fila.find('td').eq(0).text();  // Obtener la fecha desde la fila
-                var time = fila.find('td').eq(1).text();  // Obtener la hora desde la fila
-                var speciality = fila.find('td').eq(2).text();  // Obtener la especialidad desde la fila
-                var professional = fila.find('td').eq(3).text();  // Obtener el profesional desde la fila
+                var fila = $(this).closest('tr');
+                var date = fila.find('td').eq(0).text();
+                var time = fila.find('td').eq(1).text();
+                var speciality = fila.find('td').eq(2).text();
+                var professional = fila.find('td').eq(3).text();
 
                 // Guardar los datos del turno en localStorage
                 localStorage.setItem('idTurno', idTurno);
@@ -104,36 +115,53 @@
                 localStorage.setItem('speciality', speciality);
                 localStorage.setItem('professional', professional);
 
+                // Enviar los datos al servidor usando la API Fetch
+                var formData = new FormData();
+                formData.append('idTurno', idTurno);
+                formData.append('date', date);
+                formData.append('time', time);
+                formData.append('speciality', speciality);
+                formData.append('professional', professional);
+
+                fetch('modify_turn.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Manejar la respuesta del servidor si es necesario
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error al enviar los datos al servidor:', error);
+                });
+
                 // Redirigir a la página de modificación
                 window.location.href = 'modify_turn.php';
             });
-            
+
             $('.Eliminar').click(function() {
                 var idTurno = $(this).data('id');
-
-              
                 var confirmar = confirm("¿Estás seguro de que deseas eliminar este turno?");
 
                 if (confirmar) {
-                   
                     $.ajax({
                         type: 'POST',
-                        url: 'php/eliminar_turno.php', 
+                        url: 'php/eliminar_turno.php',
                         data: { id: idTurno },
                         success: function(response) {
                             if (response === 'success') {
-                                
                                 location.reload();
                             } else {
-                                
                                 alert('Error al eliminar el turno.');
                             }
                         }
                     });
-                } 
+                }
             });
         });
     </script>
+
 
 </body>
 
