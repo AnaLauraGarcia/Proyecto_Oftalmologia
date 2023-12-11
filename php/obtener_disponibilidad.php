@@ -7,6 +7,10 @@ $professional = $_POST["professional"];
 $dia = $_POST["dia"];
 $horario = $_POST["horario"];
 
+
+
+
+
 $dayOfWeekSelected = date('l', strtotime($dia));
 
 // Mapear los días de la semana en inglés a español

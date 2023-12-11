@@ -230,6 +230,7 @@
                                             dateInput.addEventListener("change", function () {
                                                 const selectedDate = new Date(dateInput.value);
                                                 const currentDate = new Date();
+                            
 
                                                 if (selectedDate >= currentDate) {
                                                     const speciality = specialityElement.value;

@@ -21,138 +21,16 @@
 
 
     <body id="app">
-        <!-- ... Código anterior ... -->
-
+     
     <script>
-        $(document).ready(function () {
-            // Declarar idSpeciality en un ámbito más amplio
-            var idSpeciality;
-
-            // Obtener datos del turno almacenados en localStorage
-            var idTurno = localStorage.getItem('idTurno');
-            var date = localStorage.getItem('date');
-            var time = localStorage.getItem('time');
-            var speciality = localStorage.getItem('speciality');
-            var professional = localStorage.getItem('professional');
-
-            // Imprimir valores en la consola para verificar
-            console.log('idTurno:', idTurno);
-            console.log('date:', date);
-            console.log('time:', time);
-            console.log('speciality:', speciality);
-            console.log('professional:', professional);
-
-            // Desactivar elementos de fecha y hora al principio
-            $('#date').prop('disabled', true);
-            $('#hour').prop('disabled', true);
-
-            // Obtener IDs de especialidad y médico
-            $.ajax({
-                type: "POST",
-                url: "php/obtener_datos_turno.php",
-                data: { idTurno: idTurno },
-                success: function (response) {
-                    try {
-                        var datosTurno = JSON.parse(response);
-
-                        // Imprimir los datos del turno para verificar
-                        console.log('Datos del turno actualizados:', datosTurno);
-
-                        // Utilizar los IDs de especialidad y médico
-                        idSpeciality = datosTurno.speciality_id;
-                        var idProfessional = datosTurno.professional_id;
-
-                        console.log('idSpeciality:', idSpeciality);
-                        console.log('idProfessional:', idProfessional);
-
-                        // Activar elementos de fecha y hora después de establecer los valores de especialidad y médico
-                        $('#date').prop('disabled', false);
-                        $('#hour').prop('disabled', false);
-
-                        // Habilitar y cargar el menú desplegable de especialidades
-                        // ...
-
-                        // Aquí asumiendo que idSpeciality es el ID de la especialidad que deseas precargar
-                        var optionSpeciality = new Option(speciality);
-                        $('#speciality').append(optionSpeciality).trigger('change');
-
-                        // Aquí asumiendo que idSpeciality es el ID de la especialidad que deseas precargar
-                        // var optionProfessional = new Option(professional);
-                        // $('#professional').append(optionProfessional).trigger('change');
-
-                    } catch (error) {
-                        console.error("Error al analizar la respuesta JSON:", error);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error en la solicitud AJAX para obtener datos del turno:", error);
-                }
-            });
-
-            // Precargar datos en el formulario
-            $('#date').val(date);
-            $('#hour').val(time);
-
-            document.addEventListener("DOMContentLoaded", function () {
-                var specialitySelect = document.getElementById("speciality");
-                var professionalSelect = document.getElementById("professional");
-                var selectedSpecialityId;
-
-                console.log('specialitySelect:', specialitySelect);
-                console.log('professionalSelect:', professionalSelect);
-                console.log('selectedSpecialityId:', selectedSpecialityId);
-
-                function obtenerProfesionales(idEspecialidad) {
-                    // Aquí asumimos que ya tienes el ID de la especialidad y lo estás pasando como parámetro
-
-                    $.ajax({
-                        type: "POST",
-                        url: "php/obtener_medicos.php",
-                        data: { speciality_id: idSpecialidad },
-                        success: function (response) {
-                            // Actualizar el segundo select con las opciones de profesionales
-                            $("#professional").html(response);
-                            professionalSelect.value = "Seleccione un médico";
-                        },
-                    });
-                }
-
-                // Llamar directamente a la función obtenerProfesionales con el ID de la especialidad
-                obtenerProfesionales(idSpeciality);
-
-                professionalSelect.addEventListener("change", function () {
-                    var selectedProfessional = professionalSelect.value;
-
-                    console.log("Cambio en la selección del profesional. ID " + selectedProfessional);
-
-                    // Obtener días y horas del profesional seleccionado
-                    $.ajax({
-                        type: "POST",
-                        url: "php/mostrar_dias_hora.php",
-                        data: { speciality_id: idSpeciality, professional_id: selectedProfessional },
-                        success: function (response) {
-                            var responseData = JSON.parse(response);
-
-                            var availabilityText = responseData.availabilityText;
-
-                            var professionalsStatusElement = document.getElementById("professionalsStatus");
-                            professionalsStatusElement.textContent = "Atiende los " + availabilityText;
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error en la solicitud AJAX: " + error);
-                        }
-                    });
-                });
-            });
-        });
+        
     </script>
 
-<!-- ... Código posterior ... -->
 
 
 
-        </script>
-        
+
+
         <header class="header" id="header">
             <miheader></miheader>
         </header>
@@ -191,11 +69,118 @@
                                     <div class="form-register__input">
                                     <label class="text-label" for="Medicos">Profesional:</label>
                                     <select class="input-text" id="professional" name="professional" required>
-                                        <option value="Seleccione un médico" selected disabled>Seleccione un médico</option>    
+                                        <option value="Seleccione un médico" selected disabled>Seleccione un profesional</option>    
                                     </select>
-                                    <p id="professionalsStatus"></p>
+                                        <p id="professionalsStatus"></p>
                                         <script>
-                                            
+                                            var idSpeciality; // Inicializar la variable con un valor inicial
+        
+                                                $(document).ready(function () {
+                                                    
+                                                    var dateInput;
+                                                    var popularHours;
+                                                    var hourInput;
+                                                    var professionalSelect;
+
+                                                    var idTurno = localStorage.getItem('idTurno');
+                                                    var date = localStorage.getItem('date');
+                                                    var time = localStorage.getItem('time');
+                                                    var speciality = localStorage.getItem('speciality');
+                                                    var professional = localStorage.getItem('professional');
+
+
+                                                    $('#date').prop('disabled', true);
+                                                    $('#hour').prop('disabled', true);
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "php/obtener_datos_turno.php",
+                                                        data: { idTurno: idTurno },
+                                                        success: function (response) {
+                                                            try {
+                                                                var datosTurno = JSON.parse(response);
+                                                                console.log(response);
+                                                                idSpeciality = datosTurno.speciality_id;
+
+
+                                                                $('#date').prop('disabled', false);
+                                                                $('#hour').prop('disabled', false);
+
+                                                                $('#date').val(date);
+                                                                $('#hour').val(time);
+
+                                                                var optionSpeciality = new Option(speciality);
+                                                                $('#speciality').append(optionSpeciality).trigger('change');
+
+                                                                obtenerProfesionales();
+                                                            
+                                                            } catch (error) {
+                                                                console.error("Error al analizar la respuesta JSON:", error);
+                                                            }
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            console.error("Error en la solicitud AJAX para obtener datos del turno:", error);
+                                                        }
+
+                                                   });
+                                
+
+
+                                                    var specialitySelect = document.getElementById("speciality");
+                                    
+                                                    specialitySelect.value = idSpeciality;
+                                                    professionalSelect = document.getElementById("professional");
+
+                                                    function obtenerProfesionales() {
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "php/obtener_medicos.php",
+                                                            data: { speciality_id: idSpeciality },
+                                                            success: function (response) {
+                                                                $("#professional").html(response);
+
+                                                                $(professionalSelect).on("change", function () {
+                                                                    // Obtén el nombre y el ID del profesional seleccionado
+                                                                    const selectedProfessional = professionalSelect.options[professionalSelect.selectedIndex];
+                                                                    const professionalName = selectedProfessional.text;
+                                                                    const professionalId = selectedProfessional.value;
+
+                                                                    // Muestra el nombre y el ID en un elemento HTML
+                                                                });
+
+                                                                // Establece el valor seleccionado si ya hay un profesional almacenado
+                                                                professionalSelect.value = professional;
+                                                            },
+                                                        });
+                                                    }
+
+                                                    professionalSelect.addEventListener("change", function () {
+                                                        var selectedProfessional = professionalSelect.value;
+
+                                                        console.log("Cambio en la selección del profesional. ID " + selectedProfessional);
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "php/mostrar_dias_hora.php",
+                                                            data: { speciality_id: idSpeciality, professional_id: selectedProfessional },
+
+                                                            success: function (response) {
+                                                        
+                                                                var responseData = JSON.parse(response);
+
+                                                                var availabilityText = responseData.availabilityText;
+
+                                                                var professionalsStatusElement = document.getElementById("professionalsStatus");
+                                                                professionalsStatusElement.textContent = "Atiende los " + availabilityText;
+
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.error("Error en la solicitud AJAX: " + error);
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                               
                                         </script>
 
                                 </div>
@@ -223,111 +208,176 @@
                                         <input id="hour" class="input-text" type="time" list="popularHours"
                                             required>
                                             <datalist id="popularHours"></datalist>
-                                    
+                                            
 
-                                        
-                                        <script>
-                                            document.addEventListener("DOMContentLoaded", function () {
-                                                const dateInput = document.getElementById("date");
-                                                const popularHours = document.getElementById("popularHours");
-                                                const hourInput = document.getElementById('hour');
-                                                const registerButton = document.getElementById('btnAgregar');
-                                                const specialityElement = document.getElementById('speciality');
-                                                const professionalElement = document.getElementById('professional');
 
-                                                function obtenerHorariosOcupados() {
-                                                const selectedDate = dateInput.value;
-                                                    const speciality = specialityElement.value;
-                                                    const professional = professionalElement.value;
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function () {
+                                                    const dateInput = document.getElementById("date");
+                                                    const popularHours = document.getElementById("popularHours");
+                                                    const hourInput = document.getElementById('hour');
+                                                    const registerButton = document.getElementById('btnAgregar');
+                                                    const specialityElement = document.getElementById('speciality');
+                                                    const professionalElement = document.getElementById('professional');
+                                                    
+             
 
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "php/consultar_horarios_ocupados.php",
-                                                        data: { speciality: speciality, professional: professional, dia: selectedDate },
-                                                        success: function (response) {
-                                                            try {
-                                                                const horariosOcupadosResponse = JSON.parse(response);
+                                                    function obtenerHorariosOcupados() {
+                                                        const selectedDate = dateInput.value;
+                                                        const speciality = specialityElement.value;
+                                                        const professional = professionalElement.value;
 
-                                                                if (horariosOcupadosResponse.horariosOcupados) {
-                                                                    const horariosOcupadosArray = horariosOcupadosResponse.horariosOcupados;
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "php/consultar_horarios_ocupados.php",
+                                                            data: { speciality: speciality, professional: professional, dia: selectedDate },
+                                                            success: function (response) {
+                                                                try {
+                                                                    const horariosOcupadosResponse = JSON.parse(response);
 
-                                                                    popularHours.innerHTML = ""; // Limpiar las opciones
+                                                                    if (horariosOcupadosResponse.horariosOcupados) {
+                                                                        const horariosOcupadosArray = horariosOcupadosResponse.horariosOcupados;
 
-                                                                    const todosHorarios = [];
-                                                                    for (let i = 8; i < 16; i++) {
-                                                                        todosHorarios.push(`${i.toString().padStart(2, '0')}:00:00`);
-                                                                        todosHorarios.push(`${i.toString().padStart(2, '0')}:30:00`);
+                                                                        popularHours.innerHTML = ""; // Limpiar las opciones
+
+                                                                        const todosHorarios = [];
+                                                                        for (let i = 8; i < 16; i++) {
+                                                                            todosHorarios.push(`${i.toString().padStart(2, '0')}:00:00`);
+                                                                            todosHorarios.push(`${i.toString().padStart(2, '0')}:30:00`);
+                                                                        }
+
+                                                                        const horariosDisponibles = todosHorarios.filter((horario) => !horariosOcupadosArray.includes(horario));
+
+                                                                        horariosDisponibles.forEach((horario) => {
+                                                                            const option = document.createElement('option');
+                                                                            option.value = horario;
+                                                                            popularHours.appendChild(option);
+                                                                        });
+                                                                    } else {
+                                                                        console.error("La respuesta no contiene horarios ocupados:", response);
                                                                     }
-
-                                                                    const horariosDisponibles = todosHorarios.filter((horario) => !horariosOcupadosArray.includes(horario));
-
-                                                                    horariosDisponibles.forEach((horario) => {
-                                                                        const option = document.createElement('option');
-                                                                        option.value = horario;
-                                                                        popularHours.appendChild(option);
-                                                                    });
-                                                                } else {
-                                                                    console.error("La respuesta no contiene horarios ocupados:", response);
+                                                                } catch (error) {
+                                                                    console.error("Error al analizar la respuesta JSON:", error);
                                                                 }
-                                                            } catch (error) {
-                                                                console.error("Error al analizar la respuesta JSON:", error);
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.error("Error al obtener los horarios ocupados:", error);
                                                             }
-                                                        },
-                                                        error: function (xhr, status, error) {
-                                                            console.error("Error al obtener los horarios ocupados:", error);
+                                                        });
+                                                    }
+
+                                                    dateInput.addEventListener("change", function () {
+                                                        const selectedDate = new Date(dateInput.value);
+                                                        const currentDate = new Date();    
+                                                        console.log("Fecha seleccionada por el usuario:", selectedDate);
+
+                                                        if (selectedDate.toDateString() >= currentDate.toDateString()) {
+                                                            const speciality = idSpeciality;
+                                                            const professional = professionalElement.value;
+                                                            const dia = dateInput.value;
+                                                            const horario = hourInput.value;
+                                                            console.log("Reeeeeeeeeecibido speciality:", speciality);
+                                                            console.log("Recibido professional:", professional);
+                                                            console.log("Recibido dia:", dia);
+                                                            console.log("Recibido horario:", horario);
+
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: "php/obtener_disponibilidad.php",
+                                                                data: { speciality, professional, dia, horario },
+                                                                success: function (response) {
+                                                                    var responseData = JSON.parse(response);
+                                                                    var professionalsDateElement = document.getElementById("professionalsDate");
+                                                                    var messageText = responseData.message;
+
+                                                                    professionalsDateElement.textContent = messageText;
+
+                                                                    if (responseData.status === "exito") {
+                                                                        obtenerHorariosOcupados();
+                                                                        hourInput.disabled = false;
+                                                                        registerButton.style.display = "inline"; // Muestra el botón
+                                                                    } else if (responseData.status === "fallo") {
+                                                                        professionalsDateElement.textContent = "Este profesional junto con esta especialidad atiende solo los días: " + responseData.dayAssigned;
+                                                                        hourInput.disabled = true;
+                                                                        registerButton.style.display = "none"; // Oculta el botón
+                                                                    }
+                                                                },
+                                                                error: function (xhr, status, error) {
+                                                                    console.error("Error en la solicitud AJAX: " + error);
+                                                                }
+                                                            });
+                                                        } else {
+                                                            hourInput.disabled = true;
+                                                            popularHours.disabled = true;
+                                                            popularHours.innerHTML = "";
+                                                            registerButton.disabled = true;
                                                         }
                                                     });
-                                                }
-
-                                                dateInput.addEventListener("change", function () {
-                                                const selectedDate = new Date(dateInput.value);
-                                                const currentDate = new Date();
-
-                                                if (selectedDate >= currentDate) {
-                                                    const speciality = specialityElement.value;
-                                                    const professional = professionalElement.value;
-                                                    const dia = dateInput.value;
-                                                    const horario = hourInput.value;
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "../php/obtener_disponibilidad.php",
-                                                        data: { speciality, professional, dia, horario },
-                                                        success: function (response) {
-                                                            var responseData = JSON.parse(response);
-                                                            var professionalsDateElement = document.getElementById("professionalsDate");
-                                                            var messageText = responseData.message;
-
-                                                            professionalsDateElement.textContent = ""; // Limpiar el mensaje
-                                                            obtenerHorariosOcupados();
-                                                            hourInput.disabled = false;
-                                                            registerButton.style.display = "inline"; // Muestra el botón
-                                                        }
-                                                    });
-                                                } else {
-                                                    hourInput.disabled = true;
-                                                    popularHours.disabled = true;
-                                                    popularHours.innerHTML = "";
-                                                    registerButton.disabled = true;
-                                                }
-                                            });
 
 
-                                                obtenerHorariosOcupados(); // Llamada inicial al cargar el formulario
-                                            });
-                                        </script>
+                                                    obtenerHorariosOcupados(); // Llamada inicial al cargar el formulario
+                                                });
+
+                                            </script>
                                     </div>
                                     
                                 </div>
                                 <div class=" div-button " id="boton">
-                                    <input class="button button-turno" type="button" value="Modificar" id="btnAgregar" style=";">
+                                <input class="button button-turno" type="button" value="Modificar" id="btnAgregar" style="display: none;">
 
                                 </div>
-
                                 
+                                <script>
 
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        var turnoGuardado = false;
 
+                                        document.getElementById("btnAgregar").addEventListener("click", function () {
+                                            console.log("Clic en el botón");
+                                            var speciality = document.getElementById("speciality").value;
+                                            var professional = document.getElementById("professional").value;
+                                            var dia = document.getElementById("date").value;
+                                            var horario = document.getElementById("hour").value;
 
+                                            console.log("Especialidad seleccionada:", idSpeciality);
+                                            console.log("Profesional seleccionado:", professional);
+                                            console.log("Día seleccionado:", dia);
+                                            console.log("Horario seleccionado:", horario);
+
+                                            // Deshabilitar el botón para evitar clics repetidos
+                                            document.getElementById("btnAgregar").disabled = true;
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "php/modificar_turno.php",
+                                                data: {
+                                                    speciality: idSpeciality,
+                                                    professional: professional,
+                                                    dia: dia,
+                                                    horario: horario
+                                                },
+                                                success: function (response) {
+                                                    console.log(response);
+                                                    if (response.trim() === "exito") {
+                                                        console.log("Turno guardado correctamente.");
+                                                        // Redirigir a la página de turnos una vez que el turno se guarde con éxito.
+                                                        // window.location.href = "turns.php";
+                                                    } else {
+                                                        alert("El turno seleccionado no está disponible. Por favor, elige otro horario.");
+                                                    }
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.error("Error en la solicitud AJAX: " + error);
+                                                },
+                                                complete: function () {
+                                                    // Habilitar el botón después de completar la solicitud, ya sea éxito o error
+                                                    document.getElementById("btnAgregar").disabled = false;
+                                                }
+                                            });
+                                        });
+
+                                    });
+                                </script>
 
                             </form>
                         </div>
