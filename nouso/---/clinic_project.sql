@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2023 a las 22:09:09
+-- Tiempo de generación: 12-12-2023 a las 19:09:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -42,14 +42,14 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `speciality_id`, `professional_id`, `date`, `time`, `status`, `users_id`) VALUES
-(24, 2, 2, '2024-02-27', '10:30:00', 'occupied', 1),
+(24, 2, 1, '2024-03-21', '09:00:00', 'occupied', 1),
 (26, 1, 1, '2024-01-15', '11:30:00', 'occupied', 1),
 (37, 1, 3, '2023-12-20', '14:30:00', 'occupied', 19),
 (38, 2, 2, '2023-12-19', '14:00:00', 'occupied', 19),
 (40, 2, 1, '2023-12-28', '14:00:00', 'occupied', 19),
 (41, 3, 3, '2023-12-29', '10:00:00', 'occupied', 20),
 (42, 3, 3, '2023-12-29', '12:00:00', 'occupied', 1),
-(43, 2, 2, '2023-12-19', '09:00:00', 'occupied', 20);
+(47, 3, 3, '2023-12-22', '10:00:00', 'occupied', 21);
 
 -- --------------------------------------------------------
 
@@ -152,7 +152,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `dni`, `lastName`, `name`, `birthday`, `affiliateName`, `affiliateNumber`, `phone`, `email`, `province`, `city`, `localate`, `zip`, `address`, `password`) VALUES
 (1, 12345678, 'Smith', 'John', '1990-05-15', '123', 'A45678', 2147483647, 'juan@example.com', 'California', 'Los Angeles', 'Downtown', 90001, '123 Main St', '123456M.'),
 (19, 34567834, 'Velez', 'Mariano', '1991-05-25', '', '', 1534567834, 'mariano@gmail.com', 'Mendoza', '500042', '50042020000', 123456, '345 dfgsdf', '123456'),
-(20, 35957362, 'Garcia', 'Ana Laura', '1991-01-25', '', '', 1173679577, 'analauragarcia.al@gmail.com', 'Buenos Aires', '060840', '0684001001', 1406, 'Blabla 12334', '123456X.');
+(20, 35957362, 'Garcia', 'Ana Laura', '1991-01-25', '', '', 1173679577, 'analauragarcia.al@gmail.com', 'Buenos Aires', '060840', '0684001001', 1406, 'Blabla 12334', '123456X.'),
+(21, 35956695, 'Garcia', 'Ana', '1996-01-25', 'Ofis', '1325445', 1545452525, 'prueba1@gmail.com', 'Ciudad Autónoma de Buenos Aires', '022035', '0203501001', 5642, 'Blablalba 54', '123456A.'),
+(22, 23565478, 'lalala', 'Pou', '1992-05-02', 'Osecac', '345345345', 1523654785, 'prueba2@gmail.com', 'Ciudad Autónoma de Buenos Aires', '022098', '0209801001', 1406, 'Blabla 567', '123456A.');
 
 --
 -- Índices para tablas volcadas
@@ -203,7 +205,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `availability`
@@ -227,7 +229,7 @@ ALTER TABLE `speciality`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
