@@ -182,6 +182,8 @@
                                             const registerButton = document.getElementById('btnAgregar');
                                             const specialityElement = document.getElementById('speciality');
                                             const professionalElement = document.getElementById('professional');
+                                            registerButton.disabled = true;
+
 
                                             function obtenerHorariosOcupados() {
                                                const selectedDate = dateInput.value;
@@ -213,9 +215,13 @@
                                                                     const option = document.createElement('option');
                                                                     option.value = horario;
                                                                     popularHours.appendChild(option);
+                                                                    registerButton.disabled = false;
+
                                                                 });
                                                             } else {
                                                                 console.error("La respuesta no contiene horarios ocupados:", response);
+                                                                registerButton.disabled = true;
+
                                                             }
                                                         } catch (error) {
                                                             console.error("Error al analizar la respuesta JSON:", error);
@@ -230,7 +236,6 @@
                                             dateInput.addEventListener("change", function () {
                                                 const selectedDate = new Date(dateInput.value);
                                                 const currentDate = new Date();
-                            
 
                                                 if (selectedDate >= currentDate) {
                                                     const speciality = specialityElement.value;
@@ -351,9 +356,7 @@
     <script src="js/scriptvue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/index.js"></script>
-    <!-- <script src="js/ajax_turno.js"></script> -->
-    <script src="js/obtener_horas.js"></script>
-    <!-- <script src="js/validate.js"></script> -->
+
 </body>
 
 </html>

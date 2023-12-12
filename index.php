@@ -1,21 +1,5 @@
- <?php
-    // session_start();
 
-    // if( ! isset($_SESSION['users'])){
-    //     echo '
-    //         <script> 
-    //             alert("Para continuar debes iniciar sesión."); 
-    //             window.location = "index.php";
-    //         </script>
-    //     ';
-        
-    //     session_destroy();
-    //     die(); // Este es el freno. Si el usuario no existe no sigue ejecutando el code.
-    // }
-
-   
-
-?> 
+ 
 <!DOCTYPE html>
 <html lang="en">
 

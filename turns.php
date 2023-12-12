@@ -1,13 +1,17 @@
 <?php
     include 'php/conexion_be.php';
 
-    // Verifica si el usuario está autenticado
     session_start();
     if (!isset($_SESSION['user_id'])) {
-        // Si el usuario no está autenticado, redirige a la página de inicio de sesión
-        header("Location: login.php");
-        exit;
-}
+        echo '
+            <script> 
+                alert("Para continuar debes iniciar sesión."); 
+                window.location = "login.php";
+            </script>
+        ';
+        exit; 
+    }
+
 ?>
 
 <!DOCTYPE html>
